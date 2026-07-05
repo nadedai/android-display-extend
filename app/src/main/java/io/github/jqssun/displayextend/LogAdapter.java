@@ -24,7 +24,11 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
-    holder.textView.setText(logs.get(position));
+    try {
+      holder.textView.setText(logs.get(position));
+    } catch (IndexOutOfBoundsException e) {
+      // list modified concurrently
+    }
   }
 
   @Override
@@ -37,7 +41,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
     public LogViewHolder(View itemView) {
       super(itemView);
-      textView = itemView.findViewById(R.id.logText);
+      textView = itemView.findViewById(R.id.log_text);
     }
   }
 }

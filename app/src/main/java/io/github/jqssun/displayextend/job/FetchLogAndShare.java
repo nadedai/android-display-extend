@@ -37,16 +37,12 @@ public class FetchLogAndShare implements Job {
         State.resumeJobLater(1000);
         throw new YieldException("waiting for user service");
       }
-      Toast.makeText(
-              State.currentActivity.get(),
-              State.currentActivity.get().getString(R.string.user_service_unavailable),
-              Toast.LENGTH_SHORT)
-          .show();
+      Toast.makeText(context, R.string.cannot_start_user_service, Toast.LENGTH_SHORT).show();
       return;
     }
 
     try {
-      File logFile = new File(State.currentActivity.get().getCacheDir(), "Extend.log");
+      File logFile = new File(context.getCacheDir(), "Extend.log");
       try (ParcelFileDescriptor sink =
           ParcelFileDescriptor.open(
               logFile,
@@ -57,35 +53,21 @@ public class FetchLogAndShare implements Job {
       }
 
       if (logFile.length() == 0) {
-        Toast.makeText(
-                State.currentActivity.get(),
-                State.currentActivity.get().getString(R.string.no_logs_to_export),
-                Toast.LENGTH_SHORT)
-            .show();
+        Toast.makeText(context, R.string.no_logs_to_export, Toast.LENGTH_SHORT).show();
         return;
       }
 
       Intent shareIntent = new Intent(Intent.ACTION_SEND);
       shareIntent.setType("text/plain");
       Uri fileUri =
-          FileProvider.getUriForFile(
-              State.currentActivity.get(),
-              State.currentActivity.get().getPackageName() + ".provider",
-              logFile);
+          FileProvider.getUriForFile(context, context.getPackageName() + ".provider", logFile);
       shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
       shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-      State.currentActivity
-          .get()
-          .startActivity(
-              Intent.createChooser(
-                  shareIntent, State.currentActivity.get().getString(R.string.share_log)));
+      context.startActivity(
+          Intent.createChooser(shareIntent, context.getString(R.string.share_log_file)));
 
     } catch (RemoteException | IOException e) {
-      Toast.makeText(
-              State.currentActivity.get(),
-              State.currentActivity.get().getString(R.string.log_export_failed),
-              Toast.LENGTH_LONG)
-          .show();
+      Toast.makeText(context, R.string.log_export_failed, Toast.LENGTH_LONG).show();
       throw new RuntimeException(e);
     }
   }

@@ -22,7 +22,7 @@ import io.github.jqssun.displayextend.shizuku.ShizukuUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class OverviewFragment extends Fragment {
   private TextView shizukuStatus;
   private MaterialButton shizukuPermissionBtn;
   private TextView accessibilityStatus;
@@ -61,33 +61,33 @@ public class HomeFragment extends Fragment {
   @Override
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_home, container, false);
+    View view = inflater.inflate(R.layout.fragment_overview, container, false);
 
-    TextView shizukuStatusPrefix = view.findViewById(R.id.shizukuStatusPrefix);
+    TextView shizukuStatusPrefix = view.findViewById(R.id.shizuku_status_prefix);
     shizukuStatusPrefix.setOnClickListener(
         v ->
             startActivity(
                 new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/rikkaapps/shizuku"))));
 
-    shizukuPermissionBtn = view.findViewById(R.id.shizukuPermissionBtn);
+    shizukuPermissionBtn = view.findViewById(R.id.shizuku_permission_btn);
     shizukuPermissionBtn.setOnClickListener(v -> State.startNewJob(new AcquireShizuku()));
 
-    shizukuStatus = view.findViewById(R.id.shizukuStatus);
-    accessibilityStatus = view.findViewById(R.id.accessibilityStatus);
-    accessibilityPermissionBtn = view.findViewById(R.id.accessibilityPermissionBtn);
+    shizukuStatus = view.findViewById(R.id.shizuku_status);
+    accessibilityStatus = view.findViewById(R.id.accessibility_status);
+    accessibilityPermissionBtn = view.findViewById(R.id.accessibility_permission_btn);
     accessibilityPermissionBtn.setOnClickListener(
         v -> {
           TouchpadAccessibilityService.ensureServiceAvailable(requireContext(), true);
           _updateAccessibilityStatus();
           _updatePermissionsCard();
         });
-    inputBindingStatus = view.findViewById(R.id.inputBindingStatus);
-    displaysContainer = view.findViewById(R.id.displaysContainer);
-    permissionsStatusTitle = view.findViewById(R.id.permissionsStatusTitle);
-    permissionsStatusDetail = view.findViewById(R.id.permissionsStatusDetail);
-    permissionsStatusIcon = view.findViewById(R.id.permissionsStatusIcon);
+    inputBindingStatus = view.findViewById(R.id.input_binding_status);
+    displaysContainer = view.findViewById(R.id.displays_container);
+    permissionsStatusTitle = view.findViewById(R.id.permissions_status_title);
+    permissionsStatusDetail = view.findViewById(R.id.permissions_status_detail);
+    permissionsStatusIcon = view.findViewById(R.id.permissions_status_icon);
 
-    MaterialButton openCastBtn = view.findViewById(R.id.openCastBtn);
+    MaterialButton openCastBtn = view.findViewById(R.id.open_cast_btn);
     Intent castIntent = new Intent(android.provider.Settings.ACTION_CAST_SETTINGS);
     boolean castAvailable =
         castIntent.resolveActivity(requireContext().getPackageManager()) != null;
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
     if (castAvailable) {
       openCastBtn.setOnClickListener(v -> startActivity(castIntent));
     }
-    view.findViewById(R.id.openMirrorOverviewBtn)
+    view.findViewById(R.id.open_mirror_overview_btn)
         .setOnClickListener(v -> MirrorIntegrationHelper.openMirrorOverview(requireContext()));
 
     view.findViewById(R.id.screen_off_button)
@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
               startActivity(intent);
             });
 
-    view.findViewById(R.id.inputBindingRow)
+    view.findViewById(R.id.input_binding_row)
         .setOnClickListener(
             v -> Navigation.findNavController(v).navigate(R.id.action_overview_to_input_binding));
 

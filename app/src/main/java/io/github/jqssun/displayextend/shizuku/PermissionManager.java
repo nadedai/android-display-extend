@@ -6,6 +6,7 @@ import android.os.UserHandle;
 import android.os.UserHandleHidden;
 import android.permission.IPermissionManager;
 import dev.rikka.tools.refine.Refine;
+import io.github.jqssun.displayextend.BuildConfig;
 import io.github.jqssun.displayextend.State;
 
 public class PermissionManager {
@@ -21,7 +22,7 @@ public class PermissionManager {
   private static boolean _grant(String permissionName) {
     UserHandle userHandle = Process.myUserHandle();
     UserHandleHidden userHandleHidden = Refine.unsafeCast(userHandle);
-    String packageName = "io.github.jqssun.displayextend";
+    String packageName = BuildConfig.APPLICATION_ID;
     IPermissionManager permissionManager = ServiceUtils.getPermissionManager();
     if (permissionManager == null) {
       IPackageManager packageManager = ServiceUtils.getPackageManager();

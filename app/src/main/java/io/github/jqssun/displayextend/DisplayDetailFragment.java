@@ -220,7 +220,7 @@ public class DisplayDetailFragment extends Fragment {
       settingsHeader.setVisibility(View.VISIBLE);
       settingsSection.setVisibility(View.VISIBLE);
 
-      MaterialSwitch autoOpenSwitch = view.findViewById(R.id.autoOpenLastAppSwitch);
+      MaterialSwitch autoOpenSwitch = view.findViewById(R.id.auto_open_last_app_switch);
       autoOpenSwitch.setChecked(Pref.getAutoOpenLastApp(display.getName()));
       autoOpenSwitch.setOnCheckedChangeListener(
           (b, checked) -> Pref.setAutoOpenLastApp(display.getName(), checked));

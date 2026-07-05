@@ -60,7 +60,7 @@ public class InputDeviceDetailFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_input_device_detail, container, false);
 
-    LinearLayout infoTable = view.findViewById(R.id.infoTable);
+    LinearLayout infoTable = view.findViewById(R.id.info_table);
 
     if (device != null) {
       Context ctx = requireContext();
@@ -89,8 +89,8 @@ public class InputDeviceDetailFragment extends Fragment {
           ctx, infoTable, getString(R.string.info_input_sources), _getDeviceSources(device));
     }
 
-    displaySpinner = view.findViewById(R.id.displaySpinner);
-    bindBtn = view.findViewById(R.id.bindBtn);
+    displaySpinner = view.findViewById(R.id.display_spinner);
+    bindBtn = view.findViewById(R.id.bind_btn);
 
     _initDisplaySpinner();
     _setupBindButton();

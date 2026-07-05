@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/touchpadRoot"
+    android:id="@+id/touchpad_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -75,7 +75,7 @@
         </LinearLayout>
 
         <View
-            android:id="@+id/scrollStrip"
+            android:id="@+id/scroll_strip"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_marginStart="8dp"
@@ -84,7 +84,7 @@
 
     <!-- Side action buttons -->
     <LinearLayout
-        android:id="@+id/bottomButtons"
+        android:id="@+id/bottom_buttons"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingVertical="16dp"
@@ -93,7 +93,7 @@
         android:gravity="center">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/backButton"
+            android:id="@+id/back_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
@@ -103,7 +103,7 @@
             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/homeButton"
+            android:id="@+id/home_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
@@ -113,7 +113,7 @@
             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/nightModeButton"
+            android:id="@+id/night_mode_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
@@ -123,7 +123,7 @@
             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/rotateCcwButton"
+            android:id="@+id/rotate_ccw_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
@@ -133,7 +133,7 @@
             style="@style/Widget.Material3.Button.IconButton.Filled.Tonal" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/rotateCwButton"
+            android:id="@+id/rotate_cw_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
@@ -145,26 +145,26 @@
 
     <!-- Hidden views referenced by code but not shown in landscape -->
     <LinearLayout
-        android:id="@+id/topBar"
+        android:id="@+id/top_bar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
         android:orientation="horizontal">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/switchModeButton"
+            android:id="@+id/switch_mode_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <Spinner
-            android:id="@+id/modeSpinner"
+            android:id="@+id/mode_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/exitButton"
+            android:id="@+id/exit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone" />

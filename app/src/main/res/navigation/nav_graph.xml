@@ -2,44 +2,44 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_overview">
+    app:startDestination="@id/overview_fragment">
 
     <fragment
-        android:id="@+id/nav_overview"
-        android:name="io.github.jqssun.displayextend.HomeFragment"
+        android:id="@+id/overview_fragment"
+        android:name="io.github.jqssun.displayextend.OverviewFragment"
         android:label="@string/overview">
-        <action android:id="@+id/action_overview_to_display_detail" app:destination="@id/nav_display_detail" />
-        <action android:id="@+id/action_overview_to_input_binding" app:destination="@id/nav_input_binding" />
+        <action android:id="@+id/action_overview_to_display_detail" app:destination="@id/display_detail_fragment" />
+        <action android:id="@+id/action_overview_to_input_binding" app:destination="@id/input_binding_fragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_display_detail"
+        android:id="@+id/display_detail_fragment"
         android:name="io.github.jqssun.displayextend.DisplayDetailFragment"
-        android:label="Display {display_id}">
+        android:label="@string/display_detail_title">
         <argument
             android:name="display_id"
             app:argType="integer" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_input_binding"
+        android:id="@+id/input_binding_fragment"
         android:name="io.github.jqssun.displayextend.InputBindingFragment"
         android:label="@string/input_binding_title" />
 
     <fragment
-        android:id="@+id/nav_logs"
+        android:id="@+id/logs_fragment"
         android:name="io.github.jqssun.displayextend.LogsFragment"
-        android:label="@string/logs" />
+        android:label="@string/tab_logs" />
 
     <fragment
-        android:id="@+id/nav_settings"
+        android:id="@+id/settings_fragment"
         android:name="io.github.jqssun.displayextend.SettingsFragment"
-        android:label="@string/settings" />
+        android:label="@string/tab_settings" />
 
     <fragment
-        android:id="@+id/nav_input_device_detail"
+        android:id="@+id/input_device_detail_fragment"
         android:name="io.github.jqssun.displayextend.InputDeviceDetailFragment"
-        android:label="Device {device_id}">
+        android:label="@string/input_device_detail_title">
         <argument
             android:name="device_id"
             app:argType="integer" />

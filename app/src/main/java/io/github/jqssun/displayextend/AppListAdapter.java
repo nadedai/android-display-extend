@@ -236,7 +236,7 @@ public class AppListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     HeaderViewHolder(View view) {
       super(view);
-      title = view.findViewById(R.id.headerText);
+      title = view.findViewById(R.id.header_text);
     }
   }
 
@@ -252,8 +252,8 @@ public class AppListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
       appIcon = view.findViewById(R.id.app_icon);
       text1 = view.findViewById(R.id.text1);
       text2 = view.findViewById(R.id.text2);
-      btnOpenOnPhone = view.findViewById(R.id.openOnPhoneBtn);
-      btnLaunch = view.findViewById(R.id.launchBtn);
+      btnOpenOnPhone = view.findViewById(R.id.open_on_phone_btn);
+      btnLaunch = view.findViewById(R.id.launch_btn);
     }
   }
 }

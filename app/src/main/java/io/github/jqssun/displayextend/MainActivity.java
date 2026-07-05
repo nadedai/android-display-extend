@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  private final Shizuku.OnRequestPermissionResultListener REQUEST_PERMISSION_RESULT_LISTENER =
+  private final Shizuku.OnRequestPermissionResultListener requestPermissionResultListener =
       this::_onPermissionResult;
 
   @Override
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     EdgeToEdge.enable(this);
     super.onCreate(savedInstanceState);
-    Shizuku.addRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
+    Shizuku.addRequestPermissionResultListener(requestPermissionResultListener);
     if (ShizukuUtils.hasPermission() && State.userService == null) {
       Shizuku.peekUserService(State.userServiceArgs, State.userServiceConnection);
       Shizuku.bindUserService(State.userServiceArgs, State.userServiceConnection);
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     NavHostFragment navHostFragment =
         (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
     navController = navHostFragment.getNavController();
-    bottomNav = findViewById(R.id.bottomNav);
+    bottomNav = findViewById(R.id.bottom_nav);
     View navHost = findViewById(R.id.nav_host_fragment);
     bottomNav.addOnLayoutChangeListener(
         (v, l, t, r, b, ol, ot, orr, ob) ->
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     MaterialToolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     AppBarConfiguration appBarConfig =
-        new AppBarConfiguration.Builder(R.id.nav_overview, R.id.nav_logs, R.id.nav_settings)
+        new AppBarConfiguration.Builder(R.id.overview_fragment, R.id.logs_fragment, R.id.settings_fragment)
             .build();
     NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig);
     NavigationUI.setupWithNavController(bottomNav, navController);
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
   public boolean onSupportNavigateUp() {
     return NavigationUI.navigateUp(
             navController,
-            new AppBarConfiguration.Builder(R.id.nav_overview, R.id.nav_logs, R.id.nav_settings)
+            new AppBarConfiguration.Builder(R.id.overview_fragment, R.id.logs_fragment, R.id.settings_fragment)
                 .build())
         || super.onSupportNavigateUp();
   }
@@ -216,18 +216,18 @@ public class MainActivity extends AppCompatActivity {
       return;
     }
     if (navController.getCurrentDestination() != null
-        && navController.getCurrentDestination().getId() == R.id.nav_display_detail) {
-      navController.popBackStack(R.id.nav_overview, false);
+        && navController.getCurrentDestination().getId() == R.id.display_detail_fragment) {
+      navController.popBackStack(R.id.overview_fragment, false);
     }
     Bundle args = new Bundle();
     args.putInt("display_id", displayId);
-    navController.navigate(R.id.nav_display_detail, args);
+    navController.navigate(R.id.display_detail_fragment, args);
   }
 
   public void navigateToInputDeviceDetail(int deviceId) {
     Bundle args = new Bundle();
     args.putInt("device_id", deviceId);
-    navController.navigate(R.id.nav_input_device_detail, args);
+    navController.navigate(R.id.input_device_detail_fragment, args);
   }
 
   @Override
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onDestroy() {
     super.onDestroy();
     State.unbindUserService();
-    Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER);
+    Shizuku.removeRequestPermissionResultListener(requestPermissionResultListener);
     State.currentActivity = new WeakReference<>(null);
     unregisterReceiver(usbPermissionReceiver);
   }
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
     if (ACTION_OPEN_OVERVIEW.equals(action)) {
       _navigateToOverview();
       if (_isValidMirrorScreen(sourceScreen)) {
-        _setCrossAppBackTarget(sourceScreen, R.id.nav_overview, -1);
+        _setCrossAppBackTarget(sourceScreen, R.id.overview_fragment, -1);
       } else {
         _clearCrossAppBackTarget();
       }
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
     if (ACTION_OPEN_SETTINGS.equals(action)) {
       _navigateToSettings();
       if (_isValidMirrorScreen(sourceScreen)) {
-        _setCrossAppBackTarget(sourceScreen, R.id.nav_settings, -1);
+        _setCrossAppBackTarget(sourceScreen, R.id.settings_fragment, -1);
       } else {
         _clearCrossAppBackTarget();
       }
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
       _navigateToOverview();
       Toast.makeText(this, R.string.display_unavailable_opened_overview, Toast.LENGTH_SHORT).show();
       if (_isValidMirrorScreen(sourceScreen)) {
-        _setCrossAppBackTarget(sourceScreen, R.id.nav_overview, -1);
+        _setCrossAppBackTarget(sourceScreen, R.id.overview_fragment, -1);
       } else {
         _clearCrossAppBackTarget();
       }
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     if (_isValidMirrorScreen(sourceScreen)) {
-      _setCrossAppBackTarget(sourceScreen, R.id.nav_display_detail, displayId);
+      _setCrossAppBackTarget(sourceScreen, R.id.display_detail_fragment, displayId);
     } else {
       _clearCrossAppBackTarget();
     }
@@ -312,11 +312,11 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void _navigateToOverview() {
-    _navigateToTopLevelDestination(R.id.nav_overview);
+    _navigateToTopLevelDestination(R.id.overview_fragment);
   }
 
   private void _navigateToSettings() {
-    _navigateToTopLevelDestination(R.id.nav_settings);
+    _navigateToTopLevelDestination(R.id.settings_fragment);
   }
 
   private void _navigateToTopLevelDestination(int destinationId) {
@@ -331,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
 
   private boolean _isShowingDisplayDetail(int displayId) {
     if (navController.getCurrentDestination() == null
-        || navController.getCurrentDestination().getId() != R.id.nav_display_detail) {
+        || navController.getCurrentDestination().getId() != R.id.display_detail_fragment) {
       return false;
     }
 
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
     if (navController.getCurrentDestination().getId() != crossAppLandingDestinationId) {
       return false;
     }
-    if (crossAppLandingDestinationId != R.id.nav_display_detail) {
+    if (crossAppLandingDestinationId != R.id.display_detail_fragment) {
       return true;
     }
     return _isShowingDisplayDetail(crossAppLandingDisplayId);

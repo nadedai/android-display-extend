@@ -45,7 +45,7 @@
             </LinearLayout>
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/autoBindInputCheckbox"
+                android:id="@+id/auto_bind_input_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -70,13 +70,13 @@
             android:paddingVertical="8dp">
 
             <Spinner
-                android:id="@+id/displaySpinner"
+                android:id="@+id/display_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bindBtn"
+                android:id="@+id/bind_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bind_input_devices"
@@ -86,7 +86,7 @@
 
         <!-- External devices -->
         <LinearLayout
-            android:id="@+id/externalDeviceContainer"
+            android:id="@+id/external_device_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -102,7 +102,7 @@
                 android:paddingBottom="4dp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/externalDevicesRecycler"
+                android:id="@+id/external_devices_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
@@ -120,7 +120,7 @@
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/internalDevicesRecycler"
+            android:id="@+id/internal_devices_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"

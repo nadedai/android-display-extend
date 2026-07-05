@@ -21,14 +21,14 @@ public class ManagedVirtualDisplayDialog {
     View dialogView =
         LayoutInflater.from(context).inflate(R.layout.dialog_managed_virtual_display, null);
 
-    MaterialCheckBox followAppRotationCheckbox =
-        dialogView.findViewById(R.id.followAppRotationCheckbox);
+    MaterialCheckBox rotatesWithContentCheckbox =
+        dialogView.findViewById(R.id.rotates_with_content_checkbox);
     MaterialCheckBox skipScreenCaptureCheckbox =
-        dialogView.findViewById(R.id.skipScreenCaptureCheckbox);
+        dialogView.findViewById(R.id.skip_screen_capture_checkbox);
     MaterialCheckBox autoManagedVirtualDisplayCheckbox =
-        dialogView.findViewById(R.id.autoManagedVirtualDisplayCheckbox);
+        dialogView.findViewById(R.id.auto_managed_virtual_display_checkbox);
 
-    followAppRotationCheckbox.setChecked(Pref.getFollowAppRotation());
+    rotatesWithContentCheckbox.setChecked(Pref.getRotatesWithContent());
     skipScreenCaptureCheckbox.setChecked(Pref.getSkipScreenCapturePermission());
     autoManagedVirtualDisplayCheckbox.setChecked(
         Pref.getAutoManagedVirtualDisplay(display.getName()));
@@ -41,7 +41,7 @@ public class ManagedVirtualDisplayDialog {
         .setPositiveButton(
             context.getString(R.string.ok),
             (dialog, which) -> {
-              Pref.setFollowAppRotation(followAppRotationCheckbox.isChecked());
+              Pref.setRotatesWithContent(rotatesWithContentCheckbox.isChecked());
               Pref.setSkipScreenCapturePermission(skipScreenCaptureCheckbox.isChecked());
               boolean autoManagedVirtualDisplay = autoManagedVirtualDisplayCheckbox.isChecked();
               Pref.setAutoManagedVirtualDisplay(display.getName(), autoManagedVirtualDisplay);
@@ -60,7 +60,7 @@ public class ManagedVirtualDisplayDialog {
                           initialSize.y,
                           (int) display.getRefreshRate(),
                           metrics.densityDpi,
-                          Pref.getFollowAppRotation())));
+                          Pref.getRotatesWithContent())));
             })
         .setNegativeButton(context.getString(R.string.cancel), null)
         .show());

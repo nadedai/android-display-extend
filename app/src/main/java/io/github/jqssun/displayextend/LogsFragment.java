@@ -26,11 +26,18 @@ public class LogsFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_logs, container, false);
 
-    logRecyclerView = view.findViewById(R.id.logRecyclerView);
+    logRecyclerView = view.findViewById(R.id.log_recycler_view);
     logAdapter = new LogAdapter(State.logs);
     logRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
     logRecyclerView.setAdapter(logAdapter);
     _scrollToBottom();
+
+    State.logVersion.observe(
+        getViewLifecycleOwner(),
+        version -> {
+          logAdapter.notifyDataSetChanged();
+          _scrollToBottom();
+        });
 
     requireActivity()
         .addMenuProvider(
@@ -45,9 +52,7 @@ public class LogsFragment extends Fragment {
                 if (item.getItemId() == R.id.action_export) {
                   if (!ShizukuUtils.hasPermission()) {
                     Toast.makeText(
-                            requireContext(),
-                            R.string.export_log_requires_shizuku,
-                            Toast.LENGTH_SHORT)
+                            requireContext(), R.string.export_log_needs_shizuku, Toast.LENGTH_SHORT)
                         .show();
                     return true;
                   }
@@ -64,16 +69,7 @@ public class LogsFragment extends Fragment {
             getViewLifecycleOwner(),
             Lifecycle.State.RESUMED);
 
-    State.logVersion.observe(getViewLifecycleOwner(), version -> _refreshLogs());
-
     return view;
-  }
-
-  private void _refreshLogs() {
-    if (logAdapter != null) {
-      logAdapter.notifyDataSetChanged();
-      _scrollToBottom();
-    }
   }
 
   private void _scrollToBottom() {

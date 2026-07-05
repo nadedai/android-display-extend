@@ -45,8 +45,7 @@ public class State {
 
   public static WeakReference<Activity> currentActivity = new WeakReference<>(null);
   private static Job currentJob;
-  private static final int MAX_LOGS = 1000;
-  public static List<String> logs = new ArrayList<>();
+  public static List<String> logs = Collections.synchronizedList(new ArrayList<>());
   public static final MutableLiveData<ExtendUiState> uiState =
       new MutableLiveData<>(new ExtendUiState());
   private static final java.util.concurrent.atomic.AtomicInteger _logVersion =
@@ -149,9 +148,6 @@ public class State {
 
   public static void log(String message) {
     logs.add(message);
-    if (logs.size() > MAX_LOGS) {
-      logs.remove(0);
-    }
     Log.i("Extend", message);
     logVersion.postValue(_logVersion.incrementAndGet());
   }

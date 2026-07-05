@@ -207,10 +207,10 @@ public class TouchpadActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_touchpad);
 
-    touchpadRoot = findViewById(R.id.touchpadRoot);
-    topBar = findViewById(R.id.topBar);
-    bottomButtons = findViewById(R.id.bottomButtons);
-    modeSpinner = findViewById(R.id.modeSpinner);
+    touchpadRoot = findViewById(R.id.touchpad_root);
+    topBar = findViewById(R.id.top_bar);
+    bottomButtons = findViewById(R.id.bottom_buttons);
+    modeSpinner = findViewById(R.id.mode_spinner);
     touchpadArea = findViewById(R.id.touchpad_area);
     gestureHint = findViewById(R.id.touchpad_gesture_hint);
     touchpadHintContainer = findViewById(R.id.touchpad_button_hints);
@@ -254,23 +254,23 @@ public class TouchpadActivity extends AppCompatActivity {
         (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
             _syncTouchpadOverlay());
 
-    nightModeButton = findViewById(R.id.nightModeButton);
-    _registerNightModeButton((MaterialButton) findViewById(R.id.backButton));
-    _registerNightModeButton((MaterialButton) findViewById(R.id.homeButton));
+    nightModeButton = findViewById(R.id.night_mode_button);
+    _registerNightModeButton((MaterialButton) findViewById(R.id.back_button));
+    _registerNightModeButton((MaterialButton) findViewById(R.id.home_button));
     _registerNightModeButton(nightModeButton);
-    _registerNightModeButton((MaterialButton) findViewById(R.id.rotateCcwButton));
-    _registerNightModeButton((MaterialButton) findViewById(R.id.rotateCwButton));
-    _registerNightModeButton((MaterialButton) findViewById(R.id.switchModeButton));
-    _registerNightModeButton((MaterialButton) findViewById(R.id.exitButton));
+    _registerNightModeButton((MaterialButton) findViewById(R.id.rotate_ccw_button));
+    _registerNightModeButton((MaterialButton) findViewById(R.id.rotate_cw_button));
+    _registerNightModeButton((MaterialButton) findViewById(R.id.switch_mode_button));
+    _registerNightModeButton((MaterialButton) findViewById(R.id.exit_button));
     nightModeButton.setOnClickListener(v -> _toggleNightMode());
 
-    findViewById(R.id.backButton)
+    findViewById(R.id.back_button)
         .setOnClickListener(
             v -> {
               performBackGesture(inputManager, displayId);
             });
 
-    findViewById(R.id.homeButton)
+    findViewById(R.id.home_button)
         .setOnClickListener(
             v -> {
               launchLastPackage(this, displayId);
@@ -278,7 +278,7 @@ public class TouchpadActivity extends AppCompatActivity {
 
     _setupModeSpinner();
 
-    findViewById(R.id.rotateCcwButton)
+    findViewById(R.id.rotate_ccw_button)
         .setOnClickListener(
             v -> {
               rotation = (rotation + 1) % 4; // ccw
@@ -288,7 +288,7 @@ public class TouchpadActivity extends AppCompatActivity {
               _applyRotation();
             });
 
-    findViewById(R.id.rotateCwButton)
+    findViewById(R.id.rotate_cw_button)
         .setOnClickListener(
             v -> {
               rotation = (rotation + 3) % 4; // cw
@@ -302,9 +302,9 @@ public class TouchpadActivity extends AppCompatActivity {
     sensitivity = Pref.getTouchpadSensitivity();
     _applyNightMode();
 
-    findViewById(R.id.exitButton).setOnClickListener(v -> finish());
+    findViewById(R.id.exit_button).setOnClickListener(v -> finish());
 
-    findViewById(R.id.switchModeButton).setOnClickListener(v -> _switchMode());
+    findViewById(R.id.switch_mode_button).setOnClickListener(v -> _switchMode());
   }
 
   private void _setupTouchListenerForAccessibility() {
@@ -1193,7 +1193,7 @@ public class TouchpadActivity extends AppCompatActivity {
   }
 
   private void _setupScrollStrip() {
-    scrollStrip = findViewById(R.id.scrollStrip);
+    scrollStrip = findViewById(R.id.scroll_strip);
     final float[] lastY = {0};
     scrollStrip.setOnTouchListener(
         (v, event) -> {

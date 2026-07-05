@@ -96,7 +96,7 @@ public class DisplayMonitor {
                             display.getHeight(),
                             (int) display.getRefreshRate(),
                             metrics.densityDpi,
-                            Pref.getFollowAppRotation())));
+                            Pref.getRotatesWithContent())));
               },
               500);
       return;

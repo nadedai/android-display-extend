@@ -117,7 +117,7 @@
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
                 <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/autoOpenLastAppSwitch"
+                    android:id="@+id/auto_open_last_app_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

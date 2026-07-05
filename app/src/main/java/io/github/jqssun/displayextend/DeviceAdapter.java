@@ -55,9 +55,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
 
     DeviceViewHolder(@NonNull View itemView) {
       super(itemView);
-      deviceId = itemView.findViewById(R.id.deviceIdText);
-      deviceName = itemView.findViewById(R.id.deviceNameText);
-      deviceIcon = itemView.findViewById(R.id.deviceIcon);
+      deviceId = itemView.findViewById(R.id.device_id_text);
+      deviceName = itemView.findViewById(R.id.device_name_text);
+      deviceIcon = itemView.findViewById(R.id.device_icon);
     }
   }
 }

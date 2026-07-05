@@ -77,31 +77,31 @@ public class SettingsFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
-    forceDesktopCheckbox = view.findViewById(R.id.forceDesktopCheckbox);
-    forceResizableCheckbox = view.findViewById(R.id.forceResizableCheckbox);
-    enableFreeformCheckbox = view.findViewById(R.id.enableFreeformCheckbox);
-    enableNonResizableCheckbox = view.findViewById(R.id.enableNonResizableCheckbox);
+    forceDesktopCheckbox = view.findViewById(R.id.force_desktop_checkbox);
+    forceResizableCheckbox = view.findViewById(R.id.force_resizable_checkbox);
+    enableFreeformCheckbox = view.findViewById(R.id.enable_freeform_checkbox);
+    enableNonResizableCheckbox = view.findViewById(R.id.enable_non_resizable_checkbox);
     disableScreenShareProtectionCheckbox =
-        view.findViewById(R.id.disableScreenShareProtectionCheckbox);
-    disableUsbAudioCheckbox = view.findViewById(R.id.disableUsbAudioCheckbox);
-    useRealScreenOffCheckbox = view.findViewById(R.id.useRealScreenOffCheckbox);
+        view.findViewById(R.id.disable_screen_share_protection_checkbox);
+    disableUsbAudioCheckbox = view.findViewById(R.id.disable_usb_audio_checkbox);
+    useRealScreenOffCheckbox = view.findViewById(R.id.use_real_screen_off_checkbox);
     touchpadAccessibilityOverlayCheckbox =
-        view.findViewById(R.id.touchpadAccessibilityOverlayCheckbox);
-    touchpadTapHoldDragCheckbox = view.findViewById(R.id.touchpadTapHoldDragCheckbox);
-    stayOnWhilePluggedCheckbox = view.findViewById(R.id.stayOnWhilePluggedCheckbox);
-    autoScreenOffCheckbox = view.findViewById(R.id.autoScreenOffCheckbox);
-    showSystemSettingNamesSwitch = view.findViewById(R.id.showSystemSettingNamesSwitch);
-    matchContentFrameRateRow = view.findViewById(R.id.matchContentFrameRateRow);
-    matchContentFrameRateSpinner = view.findViewById(R.id.matchContentFrameRateSpinner);
-    trackingSpeedSlider = view.findViewById(R.id.trackingSpeedSlider);
-    disableUsbAudioTitle = view.findViewById(R.id.disableUsbAudioTitle);
-    matchContentFrameRateTitle = view.findViewById(R.id.matchContentFrameRateTitle);
-    forceDesktopTitle = view.findViewById(R.id.forceDesktopTitle);
-    forceResizableTitle = view.findViewById(R.id.forceResizableTitle);
-    enableFreeformTitle = view.findViewById(R.id.enableFreeformTitle);
-    enableNonResizableTitle = view.findViewById(R.id.enableNonResizableTitle);
-    disableScreenShareProtectionTitle = view.findViewById(R.id.disableScreenShareProtectionTitle);
-    stayOnWhilePluggedTitle = view.findViewById(R.id.stayOnWhilePluggedTitle);
+        view.findViewById(R.id.touchpad_accessibility_overlay_checkbox);
+    touchpadTapHoldDragCheckbox = view.findViewById(R.id.touchpad_tap_hold_drag_checkbox);
+    stayOnWhilePluggedCheckbox = view.findViewById(R.id.stay_on_while_plugged_checkbox);
+    autoScreenOffCheckbox = view.findViewById(R.id.auto_screen_off_checkbox);
+    showSystemSettingNamesSwitch = view.findViewById(R.id.show_system_setting_names_switch);
+    matchContentFrameRateRow = view.findViewById(R.id.match_content_frame_rate_row);
+    matchContentFrameRateSpinner = view.findViewById(R.id.match_content_frame_rate_spinner);
+    trackingSpeedSlider = view.findViewById(R.id.tracking_speed_slider);
+    disableUsbAudioTitle = view.findViewById(R.id.disable_usb_audio_title);
+    matchContentFrameRateTitle = view.findViewById(R.id.match_content_frame_rate_title);
+    forceDesktopTitle = view.findViewById(R.id.force_desktop_title);
+    forceResizableTitle = view.findViewById(R.id.force_resizable_title);
+    enableFreeformTitle = view.findViewById(R.id.enable_freeform_title);
+    enableNonResizableTitle = view.findViewById(R.id.enable_non_resizable_title);
+    disableScreenShareProtectionTitle = view.findViewById(R.id.disable_screen_share_protection_title);
+    stayOnWhilePluggedTitle = view.findViewById(R.id.stay_on_while_plugged_title);
 
     boolean granted = PermissionManager.grant("android.permission.WRITE_SECURE_SETTINGS");
     _setupDisableScreenShareProtectionCheckbox();
@@ -132,7 +132,7 @@ public class SettingsFragment extends Fragment {
     }
 
     // about
-    TextView versionText = view.findViewById(R.id.versionText);
+    TextView versionText = view.findViewById(R.id.version_text);
     try {
       String ver =
           requireContext()
@@ -144,7 +144,7 @@ public class SettingsFragment extends Fragment {
     } catch (Exception e) {
       versionText.setText(R.string.version_unknown);
     }
-    view.findViewById(R.id.websiteLink)
+    view.findViewById(R.id.website_link)
         .setOnClickListener(
             v ->
                 startActivity(
@@ -152,14 +152,14 @@ public class SettingsFragment extends Fragment {
                         android.content.Intent.ACTION_VIEW,
                         android.net.Uri.parse(
                             "https://github.com/jqssun/android-display-extend"))));
-    view.findViewById(R.id.shizukuBtn)
+    view.findViewById(R.id.shizuku_btn)
         .setOnClickListener(
             v ->
                 startActivity(
                     new android.content.Intent(
                         android.content.Intent.ACTION_VIEW,
                         android.net.Uri.parse("https://github.com/rikkaapps/shizuku"))));
-    view.findViewById(R.id.exitBtn)
+    view.findViewById(R.id.exit_btn)
         .setOnClickListener(
             v -> io.github.jqssun.displayextend.job.ExitAll.execute(requireActivity()));
 
@@ -400,7 +400,7 @@ public class SettingsFragment extends Fragment {
   }
 
   private void _setupResetAllButton(View root) {
-    root.findViewById(R.id.resetAllBtn)
+    root.findViewById(R.id.reset_all_btn)
         .setOnClickListener(
             v ->
                 new MaterialAlertDialogBuilder(requireContext())

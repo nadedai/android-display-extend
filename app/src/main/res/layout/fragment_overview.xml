@@ -13,7 +13,7 @@
 
         <!-- Permissions status -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/permissionsStatusCard"
+            android:id="@+id/permissions_status_card"
             style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
                 android:padding="16dp">
 
                 <ImageView
-                    android:id="@+id/permissionsStatusIcon"
+                    android:id="@+id/permissions_status_icon"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_marginEnd="16dp"
@@ -44,7 +44,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/permissionsStatusTitle"
+                        android:id="@+id/permissions_status_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/permissions_not_granted"
@@ -52,7 +52,7 @@
                         android:textColor="?attr/colorOnPrimaryContainer" />
 
                     <TextView
-                        android:id="@+id/permissionsStatusDetail"
+                        android:id="@+id/permissions_status_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -94,14 +94,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/shizukuStatusPrefix"
+                    android:id="@+id/shizuku_status_prefix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/shizuku_permission_status"
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <TextView
-                    android:id="@+id/shizukuStatus"
+                    android:id="@+id/shizuku_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -110,7 +110,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/shizukuPermissionBtn"
+                android:id="@+id/shizuku_permission_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/authorize"
@@ -135,14 +135,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/accessibilityStatusPrefix"
+                    android:id="@+id/accessibility_status_prefix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/accessibility_permission_status"
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <TextView
-                    android:id="@+id/accessibilityStatus"
+                    android:id="@+id/accessibility_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -151,7 +151,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/accessibilityPermissionBtn"
+                android:id="@+id/accessibility_permission_btn"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -171,13 +171,13 @@
             android:textColor="?colorPrimary" />
 
         <LinearLayout
-            android:id="@+id/displaysContainer"
+            android:id="@+id/displays_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/openCastBtn"
+            android:id="@+id/open_cast_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -186,7 +186,7 @@
             style="@style/Widget.Material3.Button.TonalButton" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/openMirrorOverviewBtn"
+            android:id="@+id/open_mirror_overview_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -204,7 +204,7 @@
             style="@style/Widget.Material3.Button.TonalButton" />
 
         <TextView
-            android:id="@+id/headerText"
+            android:id="@+id/header_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
@@ -226,7 +226,7 @@
 
         <!-- Input Binding -->
         <LinearLayout
-            android:id="@+id/inputBindingRow"
+            android:id="@+id/input_binding_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="56dp"
@@ -259,7 +259,7 @@
                     android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <TextView
-                    android:id="@+id/inputBindingStatus"
+                    android:id="@+id/input_binding_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"

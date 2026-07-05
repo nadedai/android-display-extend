@@ -21,7 +21,7 @@ public class Pref {
   public static final String KEY_ACCESSIBILITY_CONSENT = "accessibility_consent";
 
   // managed virtual display keys
-  public static final String KEY_FOLLOW_APP_ROTATION = "rotates_with_content";
+  public static final String KEY_ROTATES_WITH_CONTENT = "rotates_with_content";
   public static final String KEY_SKIP_SCREEN_CAPTURE_PERMISSION = "skip_screen_capture_permission";
 
   // app_preferences keys
@@ -111,12 +111,12 @@ public class Pref {
 
   // managed virtual display prefs
 
-  public static boolean getFollowAppRotation() {
-    return _managedVirtualDisplay().getBoolean(KEY_FOLLOW_APP_ROTATION, true);
+  public static boolean getRotatesWithContent() {
+    return _managedVirtualDisplay().getBoolean(KEY_ROTATES_WITH_CONTENT, true);
   }
 
-  public static void setFollowAppRotation(boolean v) {
-    _managedVirtualDisplay().edit().putBoolean(KEY_FOLLOW_APP_ROTATION, v).apply();
+  public static void setRotatesWithContent(boolean v) {
+    _managedVirtualDisplay().edit().putBoolean(KEY_ROTATES_WITH_CONTENT, v).apply();
   }
 
   public static boolean getSkipScreenCapturePermission() {

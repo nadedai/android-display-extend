@@ -14,21 +14,21 @@
         android:textColor="?colorOnSurfaceVariant" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/followAppRotationCheckbox"
+        android:id="@+id/rotates_with_content_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/follow_app_rotation"
+        android:text="@string/rotates_with_content"
         android:layout_marginTop="16dp" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/skipScreenCaptureCheckbox"
+        android:id="@+id/skip_screen_capture_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/skip_screen_capture_permission"
         android:layout_marginTop="8dp" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/autoManagedVirtualDisplayCheckbox"
+        android:id="@+id/auto_managed_virtual_display_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/auto_managed_virtual_display_next_time"

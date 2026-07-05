@@ -48,11 +48,11 @@ public class InputBindingFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_input_binding, container, false);
 
-    displaySpinner = view.findViewById(R.id.displaySpinner);
-    bindBtn = view.findViewById(R.id.bindBtn);
-    externalDevicesRecycler = view.findViewById(R.id.externalDevicesRecycler);
-    internalDevicesRecycler = view.findViewById(R.id.internalDevicesRecycler);
-    externalDeviceContainer = view.findViewById(R.id.externalDeviceContainer);
+    displaySpinner = view.findViewById(R.id.display_spinner);
+    bindBtn = view.findViewById(R.id.bind_btn);
+    externalDevicesRecycler = view.findViewById(R.id.external_devices_recycler);
+    internalDevicesRecycler = view.findViewById(R.id.internal_devices_recycler);
+    externalDeviceContainer = view.findViewById(R.id.external_device_container);
 
     _setupAutoBindCheckbox(view);
     _initDisplaySpinner();
@@ -63,7 +63,7 @@ public class InputBindingFragment extends Fragment {
   }
 
   private void _setupAutoBindCheckbox(View view) {
-    MaterialSwitch cb = view.findViewById(R.id.autoBindInputCheckbox);
+    MaterialSwitch cb = view.findViewById(R.id.auto_bind_input_checkbox);
     cb.setChecked(Pref.getAutoBindInput());
     cb.setOnCheckedChangeListener((b, c) -> Pref.setAutoBindInput(c));
   }

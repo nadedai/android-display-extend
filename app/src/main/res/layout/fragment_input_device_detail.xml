@@ -32,13 +32,13 @@
             android:paddingVertical="8dp">
 
             <Spinner
-                android:id="@+id/displaySpinner"
+                android:id="@+id/display_spinner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bindBtn"
+                android:id="@+id/bind_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bind"
@@ -58,7 +58,7 @@
             android:paddingBottom="4dp" />
 
         <LinearLayout
-            android:id="@+id/infoTable"
+            android:id="@+id/info_table"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
