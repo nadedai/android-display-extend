@@ -920,7 +920,9 @@ public class TouchpadActivity extends AppCompatActivity {
               height,
               WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
               WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                  | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+                  | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                  // screen coords to match getLocationOnScreen, else offset by status bar
+                  | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
               PixelFormat.TRANSLUCENT);
       params.gravity = Gravity.TOP | Gravity.START;
       params.x = loc[0];

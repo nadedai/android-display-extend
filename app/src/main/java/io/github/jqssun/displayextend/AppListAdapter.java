@@ -17,9 +17,7 @@ import io.github.jqssun.displayextend.shizuku.ServiceUtils;
 import io.github.jqssun.displayextend.shizuku.ShizukuUtils;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class AppListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   public static final class AppEntry {
@@ -102,14 +100,6 @@ public class AppListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     this.runningApps = newRunningApps != null ? newRunningApps : Collections.emptyList();
     _sortAppList(this.runningApps);
     _rebuildItems();
-  }
-
-  public Set<String> getRunningPackageNames() {
-    Set<String> packageNames = new HashSet<>();
-    for (AppEntry app : runningApps) {
-      packageNames.add(app.applicationInfo.packageName);
-    }
-    return packageNames;
   }
 
   private void _rebuildItems() {

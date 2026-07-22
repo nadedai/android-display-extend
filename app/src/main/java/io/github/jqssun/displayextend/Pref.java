@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 public class Pref {
   private static final String PREF_NAME = "settings";
   private static final String APP_PREF_NAME = "app_preferences";
-  private static final String MANAGED_VIRTUAL_DISPLAY_PREF_NAME = "bridge_settings";
+  private static final String MANAGED_VIRTUAL_DISPLAY_PREF_NAME = "managed_virtual_display_settings";
   private static final String FLOATING_PREF_NAME = "FloatingButtonPrefs";
 
   // settings keys
@@ -31,7 +31,7 @@ public class Pref {
       "FLOATING_BUTTON_FORCE_LANDSCAPE";
   public static final String KEY_TOUCHPAD_SENSITIVITY = "touchpad_sensitivity";
   private static final String PREFIX_FLOATING_BUTTON = "FLOATING_BUTTON_";
-  private static final String PREFIX_AUTO_MANAGED_VIRTUAL_DISPLAY = "AUTO_BRIDGE_";
+  private static final String PREFIX_AUTO_MANAGED_VIRTUAL_DISPLAY = "AUTO_MANAGED_VIRTUAL_DISPLAY_";
   private static final String PREFIX_AUTO_OPEN_LAST_APP = "AUTO_OPEN_LAST_APP_";
   private static final String PREFIX_LAUNCH_TIME = "launch_time_";
 

@@ -8,12 +8,10 @@ import android.hardware.display.IVirtualDisplayCallback;
 import android.hardware.display.VirtualDisplay;
 import android.hardware.display.VirtualDisplayConfig;
 import android.media.projection.IMediaProjection;
-import android.media.projection.MediaProjectionHidden;
 import android.os.Build;
 import android.view.DisplayInfo;
 import android.view.Surface;
 import androidx.annotation.NonNull;
-import dev.rikka.tools.refine.Refine;
 import io.github.jqssun.displayextend.State;
 import io.github.jqssun.displayextend.shizuku.ServiceUtils;
 import io.github.jqssun.displayextend.shizuku.ShizukuUtils;
@@ -78,11 +76,8 @@ public class CreateVirtualDisplay {
     VirtualDisplayConfig config =
         buildVirtualDisplayConfig(virtualDisplayArgs, surface, flags, virtualDisplayWidth);
     IVirtualDisplayCallback callback = new VirtualDisplayCallback();
+    // projection-backed displays are mirror-only on android 17, can't host tasks
     IMediaProjection projection = null;
-    if (State.getMediaProjection() != null) {
-      MediaProjectionHidden mediaProjectionHidden = Refine.unsafeCast(State.getMediaProjection());
-      projection = mediaProjectionHidden.getProjection();
-    }
     int displayId = -1;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
       displayId =

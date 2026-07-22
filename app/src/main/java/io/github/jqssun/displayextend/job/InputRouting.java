@@ -1,8 +1,6 @@
 package io.github.jqssun.displayextend.job;
 
 import android.hardware.input.IInputManager;
-import android.hardware.input.InputManager;
-import android.hardware.usb.UsbDevice;
 import android.os.RemoteException;
 import android.view.DisplayAddress;
 import android.view.DisplayInfo;
@@ -102,18 +100,6 @@ public class InputRouting {
         }
       }
     }
-  }
-
-  public static InputDevice findInputDevice(InputManager inputManager, UsbDevice usbDevice) {
-    for (int inputDeviceId : inputManager.getInputDeviceIds()) {
-      InputDevice inputDevice = inputManager.getInputDevice(inputDeviceId);
-      if (PlatformCompat.isExternalInputDevice(inputDevice)
-          && inputDevice.getVendorId() == usbDevice.getVendorId()
-          && inputDevice.getProductId() == usbDevice.getProductId()) {
-        return inputDevice;
-      }
-    }
-    return null;
   }
 
   public static void bindAllExternalInputToDisplay(int displayId) {

@@ -449,10 +449,6 @@ public class SettingsFragment extends Fragment {
       ManagedVirtualDisplayActivity.getInstance().finish();
     }
     ManagedVirtualDisplayActivity.stopVirtualDisplay();
-    if (State.mirrorVirtualDisplay != null) {
-      State.mirrorVirtualDisplay.release();
-      State.mirrorVirtualDisplay = null;
-    }
     State.managedVirtualDisplayHostDisplayId = -1;
     State.mirrorDisplayId = -1;
     State.lastSingleAppDisplay = 0;

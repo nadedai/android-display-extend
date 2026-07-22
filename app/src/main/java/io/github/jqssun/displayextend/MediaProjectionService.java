@@ -10,22 +10,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
-import android.os.Binder;
 import android.os.IBinder;
 
 public class MediaProjectionService extends Service {
 
   public static Service instance;
   public static boolean isStarting = false;
-  private final IBinder binder = new LocalBinder();
   private static final int NOTIFICATION_ID = 1;
   private static final String CHANNEL_ID = "MediaProjectionServiceChannel";
-
-  public class LocalBinder extends Binder {
-    MediaProjectionService getService() {
-      return MediaProjectionService.this;
-    }
-  }
 
   @Override
   public void onCreate() {
@@ -73,7 +65,7 @@ public class MediaProjectionService extends Service {
 
   @Override
   public IBinder onBind(Intent intent) {
-    return binder;
+    return null;
   }
 
   private void _createNotificationChannel() {

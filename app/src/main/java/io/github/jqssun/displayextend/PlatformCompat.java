@@ -1,6 +1,5 @@
 package io.github.jqssun.displayextend;
 
-import android.media.AudioDeviceInfo;
 import android.os.Build;
 import android.view.InputDevice;
 import android.view.accessibility.AccessibilityWindowInfo;
@@ -11,13 +10,6 @@ public final class PlatformCompat {
   private static boolean inputDeviceIsExternalMethodInitialized;
 
   private PlatformCompat() {}
-
-  public static String getAudioDeviceAddress(AudioDeviceInfo device) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      return device.getAddress();
-    }
-    return "";
-  }
 
   public static boolean isExternalInputDevice(InputDevice device) {
     if (device == null) {

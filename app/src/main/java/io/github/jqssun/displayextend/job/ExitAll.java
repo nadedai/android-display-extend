@@ -30,10 +30,6 @@ public class ExitAll {
       State.managedVirtualDisplay.release();
       State.managedVirtualDisplay = null;
     }
-    if (State.mirrorVirtualDisplay != null) {
-      State.mirrorVirtualDisplay.release();
-      State.mirrorVirtualDisplay = null;
-    }
     State.currentActivity.get().finish();
 
     android.os.Process.killProcess(android.os.Process.myPid());

@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
   public static final String ACTION_OPEN_MIRROR_SCREEN =
       "io.github.jqssun.displaymirror.action.OPEN_SCREEN";
   public static final String EXTRA_SCREEN = "screen";
-  private static final String MIRROR_SCREEN_MOONLIGHT = "moonlight";
+  private static final String MIRROR_SCREEN_SUNSHINE = "sunshine";
   private static final String MIRROR_SCREEN_AIRPLAY = "airplay";
   private static final String MIRROR_SCREEN_DISPLAYLINK = "displaylink";
   private static final String MIRROR_SCREEN_SETTINGS = "settings";
@@ -371,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private boolean _isValidMirrorScreen(String screen) {
-    return MIRROR_SCREEN_MOONLIGHT.equals(screen)
+    return MIRROR_SCREEN_SUNSHINE.equals(screen)
         || MIRROR_SCREEN_AIRPLAY.equals(screen)
         || MIRROR_SCREEN_DISPLAYLINK.equals(screen)
         || MIRROR_SCREEN_SETTINGS.equals(screen);

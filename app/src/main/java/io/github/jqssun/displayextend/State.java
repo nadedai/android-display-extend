@@ -57,7 +57,6 @@ public class State {
   public static volatile IUserService userService;
   public static VirtualDisplay managedVirtualDisplay;
   public static int managedVirtualDisplayHostDisplayId = -1;
-  public static VirtualDisplay mirrorVirtualDisplay;
   public static int mirrorDisplayId = -1;
   public static FloatingButtonService floatingButtonService;
   public static Activity isInPureBlackActivity = null;
@@ -79,6 +78,13 @@ public class State {
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
           State.log("user service disconnected");
+          State.userService = null;
+        }
+
+        @Override
+        public void onBindingDied(ComponentName componentName) {
+          State.log("user service binding died");
+          State.userService = null;
         }
       };
 
@@ -90,10 +96,6 @@ public class State {
           .processNameSuffix("extend")
           .debuggable(false)
           .version(BuildConfig.VERSION_CODE);
-
-  public static boolean isJobRunning() {
-    return currentJob != null;
-  }
 
   public static void startNewJob(Job job) {
     if (currentJob != null) {
@@ -205,11 +207,6 @@ public class State {
   public static int getManagedVirtualDisplayId() {
     if (managedVirtualDisplay == null) return -1;
     return managedVirtualDisplay.getDisplay().getDisplayId();
-  }
-
-  public static int getMirrorVirtualDisplayId() {
-    if (mirrorVirtualDisplay == null) return -1;
-    return mirrorVirtualDisplay.getDisplay().getDisplayId();
   }
 
   public static void reconcileLastSingleAppDisplay(Context context) {

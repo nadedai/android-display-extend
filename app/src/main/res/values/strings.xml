@@ -51,7 +51,7 @@
     <!-- Display list -->
     <string name="display_list_header">Select a physical or virtual display to cast applications to.</string>
     <string name="wireless_cast_hint">Use Android Wireless Display</string>
-    <string name="create_airplay_display">Use AirPlay, DisplayLink or Moonlight Display(s)</string>
+    <string name="create_display_in_mirror">Use AirPlay, DisplayLink or Sunshine (Moonlight)</string>
     <string name="mirror_app_not_installed">Install the Mirror app to proceed</string>
     <string name="display_unavailable_opened_overview">That display is no longer available. Opened Overview instead.</string>
     <string name="display_id_format">Display %1$d (%2$dx%3$d)</string>
@@ -122,7 +122,7 @@
     <string name="section_power">Power</string>
 
     <string name="disable_usb_audio">Disable USB audio routing</string>
-    <string name="disable_usb_audio_desc">Prevent switching audio output to USB audio devices (including external displays or USB DAC)</string>
+    <string name="disable_usb_audio_desc">Prevent switching audio output to USB audio devices (external displays or USB DACs)</string>
     <string name="show_system_setting_names">Show raw Android setting keys</string>
     <string name="show_system_setting_names_desc">Replace friendly titles with their Settings.Global and Settings.Secure names</string>
     <string name="match_content_frame_rate">Match content frame rate</string>

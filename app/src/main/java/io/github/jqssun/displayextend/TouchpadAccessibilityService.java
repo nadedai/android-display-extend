@@ -235,7 +235,9 @@ public class TouchpadAccessibilityService extends AccessibilityService {
             height,
             WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+                | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM
+                // screen coords to match getLocationOnScreen, else offset by status bar
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
             PixelFormat.TRANSLUCENT);
     params.gravity = android.view.Gravity.TOP | android.view.Gravity.START;
     params.x = x;
@@ -287,15 +289,6 @@ public class TouchpadAccessibilityService extends AccessibilityService {
 
   public static TouchpadAccessibilityService getInstance() {
     return instance;
-  }
-
-  public static void disableAll(Context context) {
-    if (PermissionManager.grant("android.permission.WRITE_SECURE_SETTINGS")) {
-      Settings.Secure.putString(
-          context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES, "");
-      Settings.Secure.putString(
-          context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED, "0");
-    }
   }
 
   @Override
