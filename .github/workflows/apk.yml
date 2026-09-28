@@ -16,6 +16,10 @@ on:
         required: true
         type: string
 
+# fork 出来的仓库 GITHUB_TOKEN 默认是只读,发布 Release 需要显式申请写权限
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,12 +29,21 @@ jobs:
       - name: Set TAG
         if: github.event_name == 'push'
         run: |
-          echo "version=$(echo '${{ github.ref_name }}' | awk -F 'v' '{print $2}')" >> $GITHUB_ENV
+          # tag 触发: v1.2.3 -> 1.2.3
+          # 分支触发: release/1.2.3 -> 1.2.3(不能按 'v' 切分,分支名里本身含 v)
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            version="${GITHUB_REF_NAME#v}"
+          else
+            version="${GITHUB_REF_NAME##*/}"
+            version="${version#v}"
+          fi
+          echo "version=$version" >> "$GITHUB_ENV"
 
       - name: Set TAG
         if: github.event_name == 'workflow_dispatch'
         run: |
-          echo "version=$(echo '${{ inputs.version }}' | awk -F 'v' '{print $2}')" >> $GITHUB_ENV
+          version="${{ inputs.version }}"
+          echo "version=${version#v}" >> "$GITHUB_ENV"
 
       - name: Use JDK
         uses: actions/setup-java@v4
@@ -39,13 +52,43 @@ jobs:
           java-version: "21"
           cache: "gradle"
 
+      - name: Prepare signing config
+        env:
+          STORE_B64: ${{ secrets.STORE }}
+          LOCAL_B64: ${{ secrets.LOCAL }}
+        run: |
+          if [ -n "$STORE_B64" ]; then
+            echo "==> 使用仓库 secret 中提供的签名密钥"
+            printf '%s' "$STORE_B64" | base64 -d > upload.jks
+            printf '%s' "$LOCAL_B64" | base64 -d > local.properties
+          else
+            echo "==> 未配置 STORE secret,退回使用临时生成的签名密钥"
+            echo "    (包可以正常安装使用,但签名与其它构建不一致,无法覆盖安装)"
+            keytool -genkeypair -v \
+              -keystore upload.jks \
+              -alias extend \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -storetype PKCS12 \
+              -storepass extend2026 -keypass extend2026 \
+              -dname "CN=Extend CN, O=Extend CN, C=CN"
+            {
+              echo "storeFile=$GITHUB_WORKSPACE/upload.jks"
+              echo "storePassword=extend2026"
+              echo "keyAlias=extend"
+              echo "keyPassword=extend2026"
+            } > local.properties
+          fi
+          echo "--- local.properties ---"
+          cat local.properties
+
       - name: Build
         run: |
-          echo ${{ secrets.STORE }} | base64 -d > upload.jks
-          echo ${{ secrets.LOCAL }} | base64 -d > local.properties
-          chmod +x ./gradlew;
+          chmod +x ./gradlew
           ./gradlew assembleRelease bundleRelease --stacktrace
-          rm upload.jks local.properties
+
+      - name: Cleanup signing files
+        if: always()
+        run: rm -f upload.jks local.properties
 
       - name: Publish (GitHub)
         uses: softprops/action-gh-release@v2
@@ -53,6 +96,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: v${{ env.version }}
           tag_name: v${{ env.version }}
+          fail_on_unmatched_files: true
           files: |
             ${{ env.main_project_module }}/build/outputs/apk/release/app-release.apk
             ${{ env.main_project_module }}/build/outputs/bundle/release/app-release.aab

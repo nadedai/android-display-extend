@@ -1,4 +1,11 @@
-# Display Manager for Android
+# Display Manager for Android(简体中文汉化版)
+
+> 本仓库是 [jqssun/android-display-extend](https://github.com/jqssun/android-display-extend) 的简体中文汉化 fork。
+> 仅汉化了界面文案(应用名改为「扩展屏」),功能与上游保持一致。
+> APK 请从本仓库的 [Releases](../../releases) 页面下载。
+> 原始项目版权归原作者所有,遵循 GPLv3 许可证。
+
+---
 
 [![Stars](https://img.shields.io/github/stars/jqssun/android-display-extend?label=stars&logo=GitHub)](https://github.com/jqssun/android-display-extend)
 [![GitHub](https://img.shields.io/github/downloads/jqssun/android-display-extend/total?label=GitHub&logo=GitHub)](https://github.com/jqssun/android-display-extend/releases)
