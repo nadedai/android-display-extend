@@ -132,27 +132,27 @@ public class ShellExecutor {
       process = builder.start();
       final Process running = process;
       final StringBuilder buffer = new StringBuilder();
-      Thread reader =
+      Thread readerThread =
           new Thread(
               () -> {
-                try (BufferedReader reader =
+                try (BufferedReader stream =
                     new BufferedReader(
                         new InputStreamReader(
                             running.getInputStream(), StandardCharsets.UTF_8))) {
                   String line;
-                  while ((line = reader.readLine()) != null) {
+                  while ((line = stream.readLine()) != null) {
                     buffer.append(line).append('\n');
                   }
                 } catch (Exception ignored) {
                   // 进程被销毁时读流会抛异常,忽略即可
                 }
               });
-      reader.start();
+      readerThread.start();
       if (!process.waitFor(ROOT_TIMEOUT_SECONDS, TimeUnit.SECONDS)) {
         process.destroyForcibly();
         return new Result(false, "执行超时,可能未授予 root 权限");
       }
-      reader.join(2000);
+      readerThread.join(2000);
       return new Result(process.exitValue() == 0, buffer.toString().trim());
     } catch (Throwable e) {
       return new Result(false, String.valueOf(e.getMessage()));
