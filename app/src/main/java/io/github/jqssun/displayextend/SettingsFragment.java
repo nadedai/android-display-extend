@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -57,6 +58,7 @@ public class SettingsFragment extends Fragment {
   private MaterialSwitch stayOnWhilePluggedCheckbox;
   private MaterialSwitch autoScreenOffCheckbox;
   private MaterialSwitch showSystemSettingNamesSwitch;
+  private MaterialSwitch disableLocalMirrorCheckbox;
   private View matchContentFrameRateRow;
   private Spinner matchContentFrameRateSpinner;
   private Slider trackingSpeedSlider;
@@ -91,6 +93,7 @@ public class SettingsFragment extends Fragment {
     stayOnWhilePluggedCheckbox = view.findViewById(R.id.stay_on_while_plugged_checkbox);
     autoScreenOffCheckbox = view.findViewById(R.id.auto_screen_off_checkbox);
     showSystemSettingNamesSwitch = view.findViewById(R.id.show_system_setting_names_switch);
+    disableLocalMirrorCheckbox = view.findViewById(R.id.disable_local_mirror_checkbox);
     matchContentFrameRateRow = view.findViewById(R.id.match_content_frame_rate_row);
     matchContentFrameRateSpinner = view.findViewById(R.id.match_content_frame_rate_spinner);
     trackingSpeedSlider = view.findViewById(R.id.tracking_speed_slider);
@@ -118,6 +121,7 @@ public class SettingsFragment extends Fragment {
     _setupAutoScreenOffCheckbox();
     _setupTrackingSpeedSlider();
     _setupShowSystemSettingNamesSwitch();
+    _setupDisableLocalMirrorCheckbox();
     _setupResetAllButton(view);
     if (!granted) {
       disableScreenShareProtectionCheckbox.setEnabled(false);
@@ -190,6 +194,61 @@ public class SettingsFragment extends Fragment {
           _updateSystemSettingTitleLabels();
         });
     _updateSystemSettingTitleLabels();
+  }
+
+  /**
+   * 用 overlay 关闭 config_localDisplaysMirrorContent 的开关。
+   *
+   * <p>开关状态以设备上 overlay 的实际启用情况为准,查询不到时退回本地记录,避免用户手动改过 overlay
+   * 之后界面显示不一致。
+   */
+  private void _setupDisableLocalMirrorCheckbox() {
+    disableLocalMirrorCheckbox.setOnCheckedChangeListener(null);
+    disableLocalMirrorCheckbox.setChecked(Pref.getNoMirrorOverlay());
+    _bindDisableLocalMirrorCheckbox();
+    NoMirrorOverlay.queryEnabled(
+        enabled -> {
+          if (enabled == null || disableLocalMirrorCheckbox == null) {
+            return;
+          }
+          disableLocalMirrorCheckbox.setOnCheckedChangeListener(null);
+          disableLocalMirrorCheckbox.setChecked(enabled);
+          Pref.setNoMirrorOverlay(enabled);
+          _bindDisableLocalMirrorCheckbox();
+        });
+  }
+
+  private void _bindDisableLocalMirrorCheckbox() {
+    disableLocalMirrorCheckbox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> _applyDisableLocalMirror(isChecked));
+  }
+
+  private void _applyDisableLocalMirror(boolean enabled) {
+    NoMirrorOverlay.setEnabled(
+        enabled,
+        (success, output) -> {
+          if (!isAdded()) {
+            return;
+          }
+          if (!success) {
+            State.log("failed to toggle local display mirror overlay: " + output);
+            Toast.makeText(
+                    requireContext(),
+                    getString(R.string.disable_local_mirror_failed),
+                    Toast.LENGTH_LONG)
+                .show();
+            return;
+          }
+          Pref.setNoMirrorOverlay(enabled);
+          if (enabled) {
+            // overlay 要重新挂载显示才会读到新值,提示用户重新插拔线缆。
+            new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.disable_local_mirror_applied_title)
+                .setMessage(R.string.disable_local_mirror_applied)
+                .setPositiveButton(R.string.got_it, null)
+                .show();
+          }
+        });
   }
 
   private void _hideRow(View v) {
@@ -423,6 +482,8 @@ public class SettingsFragment extends Fragment {
     _setMatchContentFrameRateValue(0);
     _putSecureInt(USB_AUDIO_AUTOMATIC_ROUTING_DISABLED_KEY, 0);
 
+    // 一并恢复显示镜像的默认行为,关掉本应用 fabricate 出来的 overlay
+    NoMirrorOverlay.setEnabled(false, null);
     Pref.clearAll();
     _stopActiveFeatures(context);
     _resetConnectedDisplayConfigs(context);
@@ -539,6 +600,7 @@ public class SettingsFragment extends Fragment {
     stayOnWhilePluggedCheckbox.setOnCheckedChangeListener(null);
     autoScreenOffCheckbox.setOnCheckedChangeListener(null);
     showSystemSettingNamesSwitch.setOnCheckedChangeListener(null);
+    disableLocalMirrorCheckbox.setOnCheckedChangeListener(null);
     matchContentFrameRateSpinner.setOnItemSelectedListener(null);
     trackingSpeedSlider.clearOnChangeListeners();
 
@@ -556,6 +618,7 @@ public class SettingsFragment extends Fragment {
     _setupAutoScreenOffCheckbox();
     _setupTrackingSpeedSlider();
     _setupShowSystemSettingNamesSwitch();
+    _setupDisableLocalMirrorCheckbox();
   }
 
   private int _getMatchContentFrameRateValue() {

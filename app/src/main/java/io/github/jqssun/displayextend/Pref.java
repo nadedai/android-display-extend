@@ -19,6 +19,7 @@ public class Pref {
   public static final String KEY_TOUCHPAD_ACCESSIBILITY_OVERLAY = "touchpad_accessibility_overlay";
   public static final String KEY_TOUCHPAD_TAP_HOLD_DRAG = "touchpad_tap_hold_drag";
   public static final String KEY_ACCESSIBILITY_CONSENT = "accessibility_consent";
+  public static final String KEY_NO_MIRROR_OVERLAY = "no_mirror_overlay";
 
   // managed virtual display keys
   public static final String KEY_ROTATES_WITH_CONTENT = "rotates_with_content";
@@ -107,6 +108,14 @@ public class Pref {
 
   public static void setAccessibilityConsent(Context ctx, boolean v) {
     _prefs(ctx).edit().putBoolean(KEY_ACCESSIBILITY_CONSENT, v).apply();
+  }
+
+  public static boolean getNoMirrorOverlay() {
+    return _prefs().getBoolean(KEY_NO_MIRROR_OVERLAY, false);
+  }
+
+  public static void setNoMirrorOverlay(boolean v) {
+    _prefs().edit().putBoolean(KEY_NO_MIRROR_OVERLAY, v).apply();
   }
 
   // managed virtual display prefs

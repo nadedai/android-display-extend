@@ -48,6 +48,14 @@
     <string name="accessibility_consent_decline">暂不</string>
     <string name="shizuku_required">需要 Shizuku 权限</string>
 
+    <!-- Local display mirror -->
+    <string name="disable_local_mirror">关闭本地屏镜像</string>
+    <string name="disable_local_mirror_desc">不再把内置屏画面镜像到外接显示器,更改后需重新拔插线缆</string>
+    <string name="disable_local_mirror_applied_title">请重新拔插线缆</string>
+    <string name="disable_local_mirror_applied">设置已写入,请重新拔插显示器线缆让更改生效。</string>
+    <string name="disable_local_mirror_failed">执行失败,需要 Shizuku 或 Root 权限</string>
+    <string name="got_it">知道了</string>
+
     <!-- Display list -->
     <string name="display_list_header">选择一个物理或虚拟显示器,把应用投放到上面。</string>
     <string name="wireless_cast_hint">使用 Android 无线投屏</string>
