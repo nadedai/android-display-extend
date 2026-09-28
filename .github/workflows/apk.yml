@@ -94,7 +94,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: v${{ env.version }}
+          name: v${{ env.version }}(简体中文汉化版)
           tag_name: v${{ env.version }}
           fail_on_unmatched_files: true
           files: |
