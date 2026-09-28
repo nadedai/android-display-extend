@@ -65,6 +65,56 @@ public class UserService extends IUserService.Stub {
     return _exec("dumpsys", "input");
   }
 
+  /**
+   * 以 shell 身份执行一条完整命令,返回 {@code "<exitCode>\n<stdout+stderr>"}。
+   *
+   * <p>本进程本身就是由 Shizuku 以 shell(uid 2000)身份拉起的,所以这里直接 {@code Runtime.exec}
+   * 就等于在 adb shell 里执行,不需要再用 su。stderr 用独立线程读取,避免命令输出把管道写满后死锁。
+   */
+  @Override
+  public String execCommand(String command) throws RemoteException {
+    try {
+      Process process = Runtime.getRuntime().exec(new String[] {"sh", "-c", command});
+      final StringBuilder errorBuffer = new StringBuilder();
+      Thread errorReader =
+          new Thread(
+              () -> {
+                try (java.io.BufferedReader reader =
+                    new java.io.BufferedReader(
+                        new java.io.InputStreamReader(
+                            process.getErrorStream(), java.nio.charset.StandardCharsets.UTF_8))) {
+                  String line;
+                  while ((line = reader.readLine()) != null) {
+                    errorBuffer.append(line).append('\n');
+                  }
+                } catch (Exception ignored) {
+                  // stderr 读不到不影响主流程
+                }
+              });
+      errorReader.start();
+      String stdout = _readStream(process.getInputStream());
+      errorReader.join();
+      int exitCode = process.waitFor();
+      return exitCode + "\n" + stdout + errorBuffer;
+    } catch (Exception e) {
+      Log.e("UserService", "execute command failed: " + command, e);
+      throw new RemoteException("Failed to execute command: " + e.getMessage());
+    }
+  }
+
+  private String _readStream(java.io.InputStream in) throws Exception {
+    StringBuilder sb = new StringBuilder();
+    try (java.io.BufferedReader reader =
+        new java.io.BufferedReader(
+            new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        sb.append(line).append('\n');
+      }
+    }
+    return sb.toString();
+  }
+
   private String _exec(String... command) throws RemoteException {
     try {
       Process process = Runtime.getRuntime().exec(command);

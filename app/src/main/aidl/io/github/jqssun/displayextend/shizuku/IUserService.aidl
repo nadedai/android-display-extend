@@ -17,4 +17,7 @@ interface IUserService {
     void startListenVolumeKey() = 5;
 
     void stopListenVolumeKey() = 6;
+
+    // 以 shell 身份执行一条 shell 命令,返回 "<exitCode>\n<stdout+stderr>"
+    String execCommand(String command) = 7;
 }
